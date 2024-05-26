@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simulation de Match</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 500px;
+        }
+        .form-container select, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .form-container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+        .result-container {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .heatmap-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="form-container">
+            <h1>Simulation de Match</h1>
+            <form id="match-form" onsubmit="simulateMatch(); return false;">
+                <label for="team1">Équipe 1:</label>
+                <select id="team1" required>
+                    <option value="" disabled selected>Choisir une équipe</option>
+                    <!-- Ajoutez ici les options pour les équipes -->
+                </select>
+                <label for="team2">Équipe 2:</label>
+                <select id="team2" required>
+                    <option value="" disabled selected>Choisir une équipe</option>
+                    <!-- Ajoutez ici les options pour les équipes -->
+                </select>
+                <button type="submit">Simulation</button>
+            </form>
+            <div class="result-container" id="result"></div>
+            <div class="heatmap-container" id="heatmap"></div>
+        </div>
+    </main>
+    <script>
+        async function simulateMatch() {
+            const team1 = document.getElementById('team1').value;
+            const team2 = document.getElementById('team2').value;
+
+            if (team1 === team2) {
+                alert("Les deux sélections correspondent à la même équipe. Veuillez choisir des équipes différentes.");
+                return;
+            }
+
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ team1, team2 })
+            });
+
+            const result = await response.json();
+            document.getElementById('result').innerText = `Prédiction: ${result.prediction}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Résultats des Matchs{% endblock %}
+
+{% block content %}
+    <h2>Résultats des Matchs</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Équipe Domicile</th>
+                <th>Équipe Extérieur</th>
+                <th>But Équipe Domicile</th>
+                <th>But Équipe Extérieur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for match in matches %}
+            <tr>
+                <td>{{ match.date }}</td>
+                <td>{{ match.home_team }}</td>
+                <td>{{ match.away_team }}</td>
+                <td>{{ match.score_home_predicted }}</td>
+                <td>{{ match.score_away_predicted }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
