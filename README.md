@@ -1,1 +1,1 @@
-# PredictionL3
+Ce projet utilise des algorithmes de machine learning pour analyser des données historiques de rencontres sportives et prédire les résultats futurs. Les sports concernés peuvent inclure le football, le basket-ball, le tennis, et plus encore. Les prédictions peuvent aider les analystes, les parieurs, et les fans de sport à mieux comprendre les tendances et les probabilités de résultats.
